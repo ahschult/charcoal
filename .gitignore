@@ -1,4 +1,13 @@
 /target
-/src/charts
+/src/charts/bar.rs
+/src/charts/scatter.rs
+/src/charts/mod.rs
+/src/charts/line.rs
+/src/charts/layer.rs
+/src/charts/pie.rs
+/src/charts/layer.rs
+/src/charts/chart_mod.rs
+/src/charts/box_plot.rs
+
 /output
 /docs

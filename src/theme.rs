@@ -7,6 +7,7 @@ pub enum Theme {
     Colorblind,
 }
 
+#[derive(Clone)]
 pub(crate) struct ThemeConfig {
     pub background: &'static str,
     pub foreground: &'static str,

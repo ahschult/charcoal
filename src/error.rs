@@ -48,6 +48,7 @@ pub enum CharcoalError {
 pub enum CharcoalWarning {
     NullsSkipped { col: String, count: usize },
     RowsSubsampled { original: usize, rendered: usize },
+    NotchClamped { group: String },
 }
 
 impl std::fmt::Display for CharcoalWarning {
@@ -60,6 +61,10 @@ impl std::fmt::Display for CharcoalWarning {
             Self::RowsSubsampled { original, rendered } => write!(
                 f,
                 "DataFrame had {original} rows; rendered a subsampled {rendered} rows for performance"
+            ),
+            Self::NotchClamped { group } => write!(
+                f,
+                "notch for group \"{group}\" was clamped to the box bounds (IQR too small)"
             ),
         }
     }

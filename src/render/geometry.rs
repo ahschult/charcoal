@@ -57,6 +57,32 @@ pub(crate) fn line(
     )
 }
 
+pub(crate) fn dashed_line(
+    x1: f64,
+    y1: f64,
+    x2: f64,
+    y2: f64,
+    stroke: &str,
+    width: f64,
+    dash: &str,
+) -> String {
+    let dash_attr = if dash.is_empty() {
+        String::new()
+    } else {
+        format!(r#" stroke-dasharray="{}""#, dash)
+    };
+    format!(
+        r#"<line x1="{}" y1="{}" x2="{}" y2="{}" stroke="{}" stroke-width="{}"{}/>"#,
+        fmt_f64(x1),
+        fmt_f64(y1),
+        fmt_f64(x2),
+        fmt_f64(y2),
+        stroke,
+        fmt_f64(width),
+        dash_attr,
+    )
+}
+
 pub(crate) fn text(
     x: f64,
     y: f64,
@@ -311,5 +337,32 @@ mod tests {
         let elements = vec!["<rect/>".to_string()];
         let svg = group(&elements, Some("plot_clip"));
         assert!(svg.contains(r#"clip-path="url(#plot_clip)""#), "{svg}");
+    }
+}
+
+#[cfg(test)]
+mod dashed_line_tests {
+    use super::*;
+
+    #[test]
+    fn dashed_line_solid_omits_dasharray() {
+        let svg = dashed_line(0.0, 0.0, 100.0, 100.0, "grey", 1.5, "");
+        assert!(!svg.contains("stroke-dasharray"), "solid must omit stroke-dasharray: {svg}");
+        assert!(svg.contains(r#"stroke="grey""#));
+    }
+
+    #[test]
+    fn dashed_line_with_dash_includes_dasharray() {
+        let svg = dashed_line(0.0, 50.0, 200.0, 50.0, "#aaa", 1.5, "6 3");
+        assert!(svg.contains(r#"stroke-dasharray="6 3""#), "must include dasharray: {svg}");
+    }
+
+    #[test]
+    fn dashed_line_coordinates_correct() {
+        let svg = dashed_line(10.0, 20.0, 30.0, 40.0, "black", 2.0, "2 2");
+        assert!(svg.contains(r#"x1="10.00""#));
+        assert!(svg.contains(r#"y1="20.00""#));
+        assert!(svg.contains(r#"x2="30.00""#));
+        assert!(svg.contains(r#"y2="40.00""#));
     }
 }
