@@ -1,4 +1,5 @@
 [package]
+# Untile published to crates.io: charcoal = { git = "https://github.com/ahschult/charcoal" }
 name        = "charcoal"
 version     = "0.1.0"
 edition     = "2021"

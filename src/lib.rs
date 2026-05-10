@@ -9,3 +9,6 @@ pub use charts::Chart;
 pub use charts::{DashStyle, NullPolicy};
 pub use error::{CharcoalError, CharcoalWarning};
 pub use theme::{ColorScale, Theme};
+
+#[cfg(feature = "notebook")]
+mod display;
