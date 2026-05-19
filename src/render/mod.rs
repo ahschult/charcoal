@@ -3,6 +3,8 @@
 pub(crate) mod geometry;
 pub(crate) mod axes;
 pub(crate) mod html;
+#[cfg(feature = "static")]
+pub(crate) mod raster;
 
 use std::sync::atomic::{AtomicU64, Ordering};
 

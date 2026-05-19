@@ -153,18 +153,38 @@ impl Chart {
 
     /// Write a PNG raster image to `path`.
     ///
-    /// Implemented in Phase 3 via `resvg` + `tiny-skia` (requires the `static` feature).
-    /// The method exists now so call sites compile; it returns an error until Phase 3 is complete.
+    /// Requires the `static` feature. The SVG is rendered via `resvg` + `tiny-skia`
+    /// entirely in-process — no browser, headless Chrome, or external binary required.
     ///
     /// # Errors
-    /// [`CharcoalError::RenderError`] until the Phase 3 raster backend is in place.
+    /// - [`CharcoalError::RenderError`] if the SVG cannot be parsed or encoded.
+    /// - [`CharcoalError::Io`] if `path` is not writable or its parent directory does not exist.
+    ///
+    /// # Examples
+    /// ```rust,no_run
+    /// # #[cfg(feature = "static")]
+    /// # fn example() -> Result<(), charcoal::CharcoalError> {
+    /// # use polars::prelude::*;
+    /// # let df = DataFrame::empty();
+    /// let chart = charcoal::Chart::scatter(&df).x("x").y("y").build()?;
+    /// chart.save_png("output.png")?;
+    /// # Ok(()) }
+    /// ```
+    #[cfg(feature = "static")]
+    pub fn save_png(&self, path: &str) -> Result<(), CharcoalError> {
+        let bytes = crate::render::raster::render_png(&self.svg, self.width, self.height)?;
+        std::fs::write(path, bytes)?;
+        Ok(())
+    }
+
+    /// `save_png` is only available with the `static` feature.
+    ///
+    /// Add `features = ["static"]` to your charcoal dependency in `Cargo.toml`.
+    #[cfg(not(feature = "static"))]
     pub fn save_png(&self, _path: &str) -> Result<(), CharcoalError> {
-        // Phase 3: drive resvg here when the `static` feature is active.
-        #[cfg(feature = "static")]
-        {}
         Err(CharcoalError::RenderError(
-            "PNG export requires the `static` feature and is implemented in Phase 3. \
-             Add `features = [\"static\"]` to your Cargo dependency once Phase 3 is released."
+            "PNG export requires the `static` feature. \
+             Add `features = [\"static\"]` to your charcoal dependency in Cargo.toml."
                 .to_string(),
         ))
     }
@@ -356,16 +376,33 @@ mod tests {
     }
 
     #[test]
-    fn save_png_stub_returns_render_error() {
+    #[cfg(not(feature = "static"))]
+    fn save_png_without_feature_returns_render_error() {
         let result = make_chart("<svg/>", "T").save_png("/tmp/should_not_exist.png");
         match result.unwrap_err() {
-            CharcoalError::RenderError(msg) => {
-                assert!(msg.contains("static"));
-                assert!(msg.to_lowercase().contains("phase 3"));
-            }
+            CharcoalError::RenderError(msg) => assert!(msg.contains("static")),
             other => panic!("expected RenderError, got {other:?}"),
         }
         assert!(!std::path::Path::new("/tmp/should_not_exist.png").exists());
+    }
+
+    #[test]
+    #[cfg(feature = "static")]
+    fn save_png_writes_valid_png() {
+        let svg = r#"<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="blue"/></svg>"#;
+        let dir = tempfile::tempdir().unwrap();
+        let path = dir.path().join("test.png");
+        make_chart(svg, "T").save_png(path.to_str().unwrap()).unwrap();
+        let bytes = std::fs::read(&path).unwrap();
+        assert_eq!(&bytes[..4], &[0x89, 0x50, 0x4E, 0x47]);
+    }
+
+    #[test]
+    #[cfg(feature = "static")]
+    fn save_png_bad_path_returns_io_error() {
+        let svg = r#"<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"></svg>"#;
+        let result = make_chart(svg, "T").save_png("/no/such/dir/chart.png");
+        assert!(matches!(result.unwrap_err(), CharcoalError::Io(_)));
     }
 
     #[test]

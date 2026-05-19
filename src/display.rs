@@ -1,40 +1,15 @@
-<<<<<<< HEAD
-pub trait Display {
-    fn evcxr_display(&self);
-}
-pub fn mime_type<S: Into<String>>(mime_type: S) -> ContentMimeType;
-impl ContentMimeType {
-    pub fn text<S: AsRef<str>>(self, text: S);
-}
-
-//! evcxr inline display for [`Chart`].
-//!
-//! Compiled only when the `notebook` feature is active. Implements the
-//! `evcxr_runtime::Display` trait so `chart.display()` renders the SVG inline
-//! in a Jupyter / evcxr notebook output cell.
-
-=======
->>>>>>> e1c8c70 ( updated display.rs, real call to evcxr display. passed tests 404/404)
 #![cfg(feature = "notebook")]
 
 use crate::charts::Chart;
 
-<<<<<<< HEAD
 /// Renders [`Chart`] inline in an evcxr notebook cell as `image/svg+xml`.
 ///
 /// The SVG string already lives on `self`; `mime_type(..).text(..)` borrows it
 /// via `AsRef<str>` and emits the evcxr protocol markers without copying.
-=======
-/// Emits the chart as `image/svg+xml` MIME data so evcxr can render it inline
-/// in the Jupyter notebook cell output.
->>>>>>> e1c8c70 ( updated display.rs, real call to evcxr display. passed tests 404/404)
 impl evcxr_runtime::Display for Chart {
     fn evcxr_display(&self) {
         evcxr_runtime::mime_type("image/svg+xml").text(&self.svg);
     }
-<<<<<<< HEAD
-}
-=======
 }
 
 #[cfg(test)]
@@ -69,4 +44,3 @@ mod tests {
         assert!(chart.svg().starts_with("<svg"));
     }
 }
->>>>>>> e1c8c70 ( updated display.rs, real call to evcxr display. passed tests 404/404)
