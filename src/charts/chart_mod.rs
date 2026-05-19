@@ -141,17 +141,13 @@ impl Chart {
         Ok(())
     }
 
-    /// Write a PNG raster image to `path`.
-    ///
-    /// Implemented in Phase 3 via `resvg` + `tiny-skia` (requires the `static` feature).
-    /// The method exists now so call sites compile; it returns an error until Phase 3 is complete.
+    /// Write a PNG raster image to `path` (requires the `static` feature).
     ///
     /// # Errors
-    /// [`CharcoalError::RenderError`] until the Phase 3 raster backend is in place.
+    /// [`CharcoalError::RenderError`] if the SVG cannot be rasterised.
+    /// [`CharcoalError::Io`] if the path is not writable.
+    #[cfg(not(feature = "static"))]
     pub fn save_png(&self, _path: &str) -> Result<(), CharcoalError> {
-        // Phase 3: drive resvg here when the `static` feature is active.
-        #[cfg(feature = "static")]
-        {}
         Err(CharcoalError::RenderError(
             "PNG export requires the `static` feature and is implemented in Phase 3. \
              Add `features = [\"static\"]` to your Cargo dependency once Phase 3 is released."
@@ -159,13 +155,24 @@ impl Chart {
         ))
     }
 
+    /// Write a PNG raster image to `path` (requires the `static` feature).
+    ///
+    /// # Errors
+    /// [`CharcoalError::RenderError`] if the SVG cannot be rasterised.
+    /// [`CharcoalError::Io`] if the path is not writable.
+    #[cfg(feature = "static")]
+    pub fn save_png(&self, path: &str) -> Result<(), CharcoalError> {
+        let bytes = crate::render::raster::render_png(&self.svg, self.width, self.height)?;
+        std::fs::write(path, bytes)?;
+        Ok(())
+    }
+
     /// Display the chart inline in an evcxr / Jupyter notebook cell.
     ///
-    /// Requires the `notebook` feature. No-op stub until Phase 3.
+    /// Requires the `notebook` feature. Has no effect outside of an evcxr context.
     #[cfg(feature = "notebook")]
     pub fn display(&self) {
-        // Phase 3: evcxr_display::SVGWrapper(self.svg.clone()).display();
-        let _ = self;
+        evcxr_runtime::Display::evcxr_display(self);
     }
 }
 
@@ -344,6 +351,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(not(feature = "static"))]
     fn save_png_stub_returns_render_error() {
         let result = make_chart("<svg/>", "T").save_png("/tmp/should_not_exist.png");
         match result.unwrap_err() {
@@ -402,5 +410,45 @@ mod tests {
     #[test]
     fn null_policy_default_is_skip() {
         assert_eq!(NullPolicy::default(), NullPolicy::Skip);
+    }
+
+    #[cfg(feature = "static")]
+    const PNG_MAGIC: [u8; 4] = [0x89, 0x50, 0x4E, 0x47];
+
+    #[cfg(feature = "static")]
+    fn make_renderable_chart() -> Chart {
+        Chart {
+            svg: r#"<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500"><rect width="800" height="500" fill="white"/></svg>"#.to_string(),
+            warnings: vec![],
+            title: "T".to_string(),
+            width: 800,
+            height: 500,
+        }
+    }
+
+    #[test]
+    #[cfg(feature = "static")]
+    fn save_png_returns_ok() {
+        let path = "/tmp/charcoal_test_save_png.png";
+        make_renderable_chart().save_png(path).unwrap();
+        assert!(std::path::Path::new(path).exists());
+        let _ = std::fs::remove_file(path);
+    }
+
+    #[test]
+    #[cfg(feature = "static")]
+    fn save_png_file_starts_with_png_magic() {
+        let path = "/tmp/charcoal_test_save_png_magic.png";
+        make_renderable_chart().save_png(path).unwrap();
+        let bytes = std::fs::read(path).unwrap();
+        assert_eq!(&bytes[..4], PNG_MAGIC);
+        let _ = std::fs::remove_file(path);
+    }
+
+    #[test]
+    #[cfg(feature = "static")]
+    fn save_png_empty_path_returns_io_error() {
+        let result = make_renderable_chart().save_png("");
+        assert!(matches!(result.unwrap_err(), CharcoalError::Io(_)));
     }
 }
