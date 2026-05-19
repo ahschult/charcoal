@@ -169,13 +169,15 @@ impl Chart {
         ))
     }
 
-    /// Display the chart inline in an evcxr / Jupyter notebook cell.
+    /// Renders the chart inline in an evcxr Jupyter notebook cell.
     ///
-    /// Requires the `notebook` feature. No-op stub until Phase 3.
+    /// Emits the SVG as `image/svg+xml` MIME data that evcxr captures and displays
+    /// in the cell output. Has no visible effect when called outside of an evcxr context.
+    ///
+    /// Requires the `notebook` feature flag.
     #[cfg(feature = "notebook")]
     pub fn display(&self) {
-        // Phase 3: evcxr_display::SVGWrapper(self.svg.clone()).display();
-        let _ = self;
+        evcxr_runtime::Display::evcxr_display(self);
     }
 }
 
