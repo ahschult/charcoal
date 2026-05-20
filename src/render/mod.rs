@@ -73,6 +73,7 @@ impl SvgCanvas {
         self.margin.top as f64
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub(crate) fn render(
         &self,
         elements: Vec<String>,

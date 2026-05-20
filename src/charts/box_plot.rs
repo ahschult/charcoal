@@ -72,21 +72,16 @@ const JITTER_MAX_PX:      f64   = 6.0;
 // ---------------------------------------------------------------------------
 
 /// Controls which individual data points are rendered on top of each box.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum PointDisplay {
     /// Only outliers are shown as individual points (default).
+    #[default]
     Outliers,
     /// All individual data points are shown, with a deterministic x-jitter to
     /// reduce overplotting.
     All,
     /// No individual points are shown.
     None,
-}
-
-impl Default for PointDisplay {
-    fn default() -> Self {
-        Self::Outliers
-    }
 }
 
 // ---------------------------------------------------------------------------

@@ -73,12 +73,13 @@ const Y_HEADROOM: f64 = 1.05;
 ///
 /// [`BinMethod::Fixed`] always takes precedence over all heuristic methods and
 /// is what `.bins(n)` sets internally.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub enum BinMethod {
     /// Scott's rule: `h = 3.49 σ n^{-1/3}`.
     ///
     /// Default because it performs well on non-normal distributions common in
     /// data science.
+    #[default]
     Scott,
 
     /// Sturges' rule: `k = ⌈log₂(n)⌉ + 1`.
@@ -99,11 +100,7 @@ pub enum BinMethod {
     Fixed(usize),
 }
 
-impl Default for BinMethod {
-    fn default() -> Self {
-        BinMethod::Scott
-    }
-}
+
 
 // ---------------------------------------------------------------------------
 // Accumulated configuration

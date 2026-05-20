@@ -291,15 +291,14 @@ impl<'df> AreaWithXY<'df> {
         }
 
         let x_is_temporal = x_viz == VizDtype::Temporal;
-        let x_f64: Vec<Option<f64>>;
-        if x_is_temporal {
+        let x_f64: Vec<Option<f64>> = if x_is_temporal {
             let (epoch_vals, x_w) = to_epoch_ms(df, x_col)?;
             warnings.extend(x_w);
-            x_f64 = epoch_vals.into_iter().map(|v| v.map(|ms| ms as f64)).collect();
+            epoch_vals.into_iter().map(|v| v.map(|ms| ms as f64)).collect()
         } else {
             let (vals, x_w) = to_f64(df, x_col)?;
             warnings.extend(x_w);
-            x_f64 = vals;
+            vals
         };
 
         // ------------------------------------------------------------------
@@ -347,15 +346,9 @@ impl<'df> AreaWithXY<'df> {
         // ------------------------------------------------------------------
         let theme_cfg = ThemeConfig::from(&config.theme);
 
+        #[allow(clippy::type_complexity)]
         let series_list: Vec<(String, String, Vec<(f64, Option<f64>)>)> =
-            if color_vals.is_none() {
-                let color = theme_cfg.palette[0].to_string();
-                let pts: Vec<(f64, Option<f64>)> = (0..n_rows)
-                    .filter_map(|i| x_f64[i].map(|xv| (xv, y_vals[i])))
-                    .collect();
-                vec![("".to_string(), color, pts)]
-            } else {
-                let cv = color_vals.as_ref().unwrap();
+            if let Some(cv) = &color_vals {
                 // Collect unique category labels preserving first-seen order.
                 let mut seen: Vec<String> = Vec::new();
                 for opt in cv {
@@ -379,6 +372,12 @@ impl<'df> AreaWithXY<'df> {
                         .collect();
                     (label.clone(), color, pts)
                 }).collect()
+            } else {
+                let color = theme_cfg.palette[0].to_string();
+                let pts: Vec<(f64, Option<f64>)> = (0..n_rows)
+                    .filter_map(|i| x_f64[i].map(|xv| (xv, y_vals[i])))
+                    .collect();
+                vec![("".to_string(), color, pts)]
             };
 
         // ------------------------------------------------------------------
@@ -497,6 +496,7 @@ impl<'df> AreaWithXY<'df> {
         let mut legend_entries: Vec<(String, String)> = Vec::new();
 
         // Apply null policy to each series: produces pixel-space segments.
+        #[allow(clippy::type_complexity)]
         let resolved_series: Vec<(String, String, Vec<Vec<(f64, f64)>>)> = series_list
             .iter()
             .map(|(label, color, pts)| {

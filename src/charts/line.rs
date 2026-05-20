@@ -341,19 +341,12 @@ impl<'df> LineWithXY<'df> {
         // ------------------------------------------------------------------
         let theme_cfg = ThemeConfig::from(&config.theme);
 
+        #[allow(clippy::type_complexity)]
         let series_list: Vec<(String, String, Vec<(f64, Option<f64>)>)> =
-            if color_vals.is_none() {
-                // ── Single series ──────────────────────────────────────────
-                let color = theme_cfg.palette[0].to_string();
-                let pts: Vec<(f64, Option<f64>)> = (0..n_rows)
-                    .filter_map(|i| x_f64[i].map(|xv| (xv, y_vals[i])))
-                    .collect();
-                vec![("".to_string(), color, pts)]
-            } else {
+            if let Some(cv) = &color_vals {
                 // ── Multi-series ───────────────────────────────────────────
                 // One entry per unique category in first-seen row order.
                 // Null category rows become a synthetic "null" series.
-                let cv = color_vals.as_ref().unwrap();
 
                 let mut order: Vec<Option<String>> = Vec::new();
                 for v in cv {
@@ -386,6 +379,13 @@ impl<'df> LineWithXY<'df> {
                         (label, color, pts)
                     })
                     .collect()
+            } else {
+                // ── Single series ──────────────────────────────────────────
+                let color = theme_cfg.palette[0].to_string();
+                let pts: Vec<(f64, Option<f64>)> = (0..n_rows)
+                    .filter_map(|i| x_f64[i].map(|xv| (xv, y_vals[i])))
+                    .collect();
+                vec![("".to_string(), color, pts)]
             };
 
         // ------------------------------------------------------------------
@@ -613,13 +613,13 @@ pub(crate) fn interpolate_nulls(pts: &[(f64, Option<f64>)]) -> Vec<(f64, Option<
                 let rx     = result[null_end].0;
                 let x_span = rx - lx;
 
-                for j in null_start..null_end {
+                for elem in &mut result[null_start..null_end] {
                     let frac = if x_span == 0.0 {
                         0.5 // degenerate: all x equal → place at midpoint
                     } else {
-                        (result[j].0 - lx) / x_span
+                        (elem.0 - lx) / x_span
                     };
-                    result[j].1 = Some(lv + frac * (rv - lv));
+                    elem.1 = Some(lv + frac * (rv - lv));
                 }
             }
             // Edge nulls: left or right missing → leave as None (gap, not extrapolation).

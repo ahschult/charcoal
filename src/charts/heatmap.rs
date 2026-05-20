@@ -468,14 +468,14 @@ impl<'df> HeatmapWithXYZ<'df> {
         // ------------------------------------------------------------------
         let mut elements: Vec<String> = Vec::new();
 
-        for yi in 0..ny {
-            for xi in 0..nx {
+        for (yi, row) in grid.iter().enumerate() {
+            for (xi, &cell) in row.iter().enumerate() {
                 // SVG origin is top-left; yi=0 → top row of the grid.
                 let cell_x = ox + xi as f64 * cell_w;
                 let cell_y = oy + yi as f64 * cell_h;
 
                 // Colour mapping (§2.6.2)
-                let fill = match grid[yi][xi] {
+                let fill = match cell {
                     Some(z) => {
                         let t = (z - z_min) / (z_max - z_min); // always in [0,1]
                         let (r, g, b) = config.color_scale.interpolate(t);
@@ -489,7 +489,7 @@ impl<'df> HeatmapWithXYZ<'df> {
 
                 // Annotation (§2.6.3)
                 if config.annotate {
-                    if let Some(z) = grid[yi][xi] {
+                    if let Some(z) = cell {
                         let text_col = legible_text_color(&fill);
                         let label    = format_z_label(z);
                         // Centre text both horizontally and vertically within cell.
@@ -686,6 +686,7 @@ fn legible_text_color(hex_fill: &str) -> &'static str {
 /// ```
 ///
 /// Labels are placed at z_max (top), midpoint, and z_min (bottom).
+#[allow(clippy::too_many_arguments)]
 fn render_color_scale_bar(
     scale:  &ColorScale,
     z_min:  f64,

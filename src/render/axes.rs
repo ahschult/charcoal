@@ -42,7 +42,7 @@ pub(crate) struct AxisOutput {
 }
 
 pub(crate) fn nice_ticks(data_min: f64, data_max: f64, target_count: usize) -> Vec<f64> {
-    let target_count = target_count.max(3).min(12);
+    let target_count = target_count.clamp(3, 12);
 
     if (data_max - data_min).abs() < f64::EPSILON {
         let v = data_min;
@@ -230,6 +230,7 @@ pub(crate) enum AxisOrientation {
     Vertical,
 }
 
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn compute_axis(
     _scale: &LinearScale,
     ticks: &[TickMark],
