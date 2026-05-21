@@ -1,0 +1,62 @@
+---
+source: tests/snapshots.rs
+assertion_line: 110
+expression: normalize_svg(chart.svg())
+---
+<svg id="cc_000000" xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<rect x="0.00" y="0.00" width="800.00" height="500.00" fill="#FFFFFF"/>
+<defs><clipPath id="cc_000000_clip"><rect x="70.00" y="50.00" width="700.00" height="390.00"/></clipPath></defs>
+<line x1="70.00" y1="50.00" x2="70.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="245.00" y1="50.00" x2="245.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="420.00" y1="50.00" x2="420.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="595.00" y1="50.00" x2="595.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="770.00" y1="50.00" x2="770.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="362.00" x2="770.00" y2="362.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="284.00" x2="770.00" y2="284.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="206.00" x2="770.00" y2="206.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="128.00" x2="770.00" y2="128.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="50.00" x2="770.00" y2="50.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="70.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="70.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">4.5</text>
+<line x1="245.00" y1="440.00" x2="245.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="245.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">5.0</text>
+<line x1="420.00" y1="440.00" x2="420.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="420.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">5.5</text>
+<line x1="595.00" y1="440.00" x2="595.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="595.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">6.0</text>
+<line x1="770.00" y1="440.00" x2="770.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="770.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">6.5</text>
+<line x1="70.00" y1="50.00" x2="70.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<line x1="65.00" y1="440.00" x2="70.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="444.20" text-anchor="end" font-size="12" fill="#333333">2.6</text>
+<line x1="65.00" y1="362.00" x2="70.00" y2="362.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="366.20" text-anchor="end" font-size="12" fill="#333333">2.8</text>
+<line x1="65.00" y1="284.00" x2="70.00" y2="284.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="288.20" text-anchor="end" font-size="12" fill="#333333">3.0</text>
+<line x1="65.00" y1="206.00" x2="70.00" y2="206.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="210.20" text-anchor="end" font-size="12" fill="#333333">3.2</text>
+<line x1="65.00" y1="128.00" x2="70.00" y2="128.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="132.20" text-anchor="end" font-size="12" fill="#333333">3.4</text>
+<line x1="65.00" y1="50.00" x2="70.00" y2="50.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="54.20" text-anchor="end" font-size="12" fill="#333333">3.6</text>
+<g clip-path="url(#cc_000000_clip)">
+<circle cx="280.00" cy="89.00" r="3.00" fill="#4C72B0" opacity="1.00"/>
+<circle cx="210.00" cy="284.00" r="3.00" fill="#4C72B0" opacity="1.00"/>
+<circle cx="140.00" cy="206.00" r="3.00" fill="#4C72B0" opacity="1.00"/>
+<circle cx="735.00" cy="206.00" r="3.00" fill="#DD8452" opacity="1.00"/>
+<circle cx="700.00" cy="167.00" r="3.00" fill="#55A868" opacity="1.00"/>
+<circle cx="525.00" cy="401.00" r="3.00" fill="#DD8452" opacity="1.00"/>
+<circle cx="490.00" cy="362.00" r="3.00" fill="#55A868" opacity="1.00"/>
+</g>
+<text x="400.00" y="30.00" text-anchor="middle" font-size="16" fill="#333333">Iris Scatter</text>
+<text x="420.00" y="494.00" text-anchor="middle" font-size="12" fill="#333333">sepal_length</text>
+<text x="24.50" y="245.00" text-anchor="middle" font-size="12" fill="#333333" transform="rotate(-90.00,24.50,245.00)" >sepal_width</text>
+<rect x="778.00" y="50.00" width="12.00" height="12.00" fill="#4C72B0" rx="2.00"/>
+<text x="794.00" y="59.60" text-anchor="start" font-size="12" fill="#333333">setosa</text>
+<rect x="778.00" y="66.00" width="12.00" height="12.00" fill="#DD8452" rx="2.00"/>
+<text x="794.00" y="75.60" text-anchor="start" font-size="12" fill="#333333">versicolor</text>
+<rect x="778.00" y="82.00" width="12.00" height="12.00" fill="#55A868" rx="2.00"/>
+<text x="794.00" y="91.60" text-anchor="start" font-size="12" fill="#333333">virginica</text>
+</svg>

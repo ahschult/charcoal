@@ -1,0 +1,52 @@
+---
+source: tests/snapshots.rs
+assertion_line: 124
+expression: normalize_svg(chart.svg())
+---
+<svg id="cc_000000" xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<rect x="0.00" y="0.00" width="800.00" height="500.00" fill="#FFFFFF"/>
+<defs><clipPath id="cc_000000_clip"><rect x="70.00" y="50.00" width="700.00" height="390.00"/></clipPath></defs>
+<line x1="70.00" y1="50.00" x2="70.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="245.00" y1="50.00" x2="245.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="420.00" y1="50.00" x2="420.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="595.00" y1="50.00" x2="595.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="770.00" y1="50.00" x2="770.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="342.50" x2="770.00" y2="342.50" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="245.00" x2="770.00" y2="245.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="147.50" x2="770.00" y2="147.50" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="50.00" x2="770.00" y2="50.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="70.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="70.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">1</text>
+<line x1="245.00" y1="440.00" x2="245.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="245.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">2</text>
+<line x1="420.00" y1="440.00" x2="420.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="420.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">3</text>
+<line x1="595.00" y1="440.00" x2="595.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="595.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">4</text>
+<line x1="770.00" y1="440.00" x2="770.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="770.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">5</text>
+<line x1="70.00" y1="50.00" x2="70.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<line x1="65.00" y1="440.00" x2="70.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="444.20" text-anchor="end" font-size="12" fill="#333333">5</text>
+<line x1="65.00" y1="342.50" x2="70.00" y2="342.50" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="346.70" text-anchor="end" font-size="12" fill="#333333">10</text>
+<line x1="65.00" y1="245.00" x2="70.00" y2="245.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="249.20" text-anchor="end" font-size="12" fill="#333333">15</text>
+<line x1="65.00" y1="147.50" x2="70.00" y2="147.50" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="151.70" text-anchor="end" font-size="12" fill="#333333">20</text>
+<line x1="65.00" y1="50.00" x2="70.00" y2="50.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="54.20" text-anchor="end" font-size="12" fill="#333333">25</text>
+<g clip-path="url(#cc_000000_clip)">
+<path d="M 70.00,342.50 L 245.00,147.50 L 420.00,245.00 L 595.00,50.00 L 770.00,186.50" fill="none" stroke="#4C72B0" stroke-width="2.00"/>
+<path d="M 70.00,440.00 L 245.00,303.50 L 420.00,381.50 L 595.00,206.00 L 770.00,323.00" fill="none" stroke="#DD8452" stroke-width="2.00"/>
+</g>
+<text x="400.00" y="30.00" text-anchor="middle" font-size="16" fill="#333333">Timeseries Line</text>
+<text x="420.00" y="494.00" text-anchor="middle" font-size="12" fill="#333333">t</text>
+<text x="24.50" y="245.00" text-anchor="middle" font-size="12" fill="#333333" transform="rotate(-90.00,24.50,245.00)" >v</text>
+<rect x="778.00" y="50.00" width="12.00" height="12.00" fill="#4C72B0" rx="2.00"/>
+<text x="794.00" y="59.60" text-anchor="start" font-size="12" fill="#333333">A</text>
+<rect x="778.00" y="66.00" width="12.00" height="12.00" fill="#DD8452" rx="2.00"/>
+<text x="794.00" y="75.60" text-anchor="start" font-size="12" fill="#333333">B</text>
+</svg>

@@ -1,3 +1,12 @@
+//! Column dtype classification for charcoal.
+//!
+//! [`VizDtype`] categorises Polars column types into the three roles that chart
+//! builders understand: `Numeric`, `Categorical`, and `Temporal`. The
+//! [`classify_column`] function performs this mapping and returns
+//! [`crate::CharcoalError::UnsupportedColumn`] for any type that charcoal cannot
+//! render. Every chart builder calls `classify_column` for each column reference
+//! before any rendering begins.
+
 use polars::datatypes::DataType;
 use polars::frame::DataFrame;
 use crate::error::{suggest_column, CharcoalError};

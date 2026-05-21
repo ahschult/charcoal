@@ -1,9 +1,39 @@
+//! Visual theme and color scale definitions.
+//!
+//! [`Theme`] controls the overall look of a chart (background, text, palette).
+//! [`ColorScale`] controls the continuous color gradient used by heatmaps.
+//! Both are passed to builder methods (`.theme()`, `.color_scale()`) and have
+//! no effect on data processing — they are purely presentational.
+
 #![allow(dead_code)]
+
+/// Overall visual style applied to a chart.
+///
+/// Pass a `Theme` to the `.theme()` builder method on any chart type.
+/// Defaults to [`Theme::Default`] when `.theme()` is not called.
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// use charcoal::{Chart, Theme};
+/// # let df = polars::frame::DataFrame::empty();
+/// let chart = Chart::scatter(&df)
+///     .x("x")
+///     .y("y")
+///     .theme(Theme::Dark)
+///     .build()?;
+/// # Ok::<(), charcoal::CharcoalError>(())
+/// ```
 #[derive(Debug, Clone, PartialEq)]
 pub enum Theme {
+    /// Clean light background with a muted eight-color categorical palette.
     Default,
+    /// Dark background (`#1E1E1E`) with adjusted palette for legibility.
     Dark,
+    /// Light background with no visible gridlines — minimal chrome.
     Minimal,
+    /// Light background using the [Wong (2011)](https://www.nature.com/articles/nmeth.1618)
+    /// eight-color palette, optimised for colour-blind viewers.
     Colorblind,
 }
 
@@ -92,11 +122,36 @@ const COLORBLIND_THEME: ThemeConfig = ThemeConfig {
     palette: WONG_PALETTE,
 };
 
+/// Continuous color gradient used to encode numeric values in heatmaps.
+///
+/// Pass a `ColorScale` to the `.color_scale()` builder method on
+/// [`Chart::heatmap`](crate::Chart::heatmap). The scale maps a normalised
+/// value in `[0.0, 1.0]` to an RGB color via piecewise linear interpolation
+/// over a fixed set of color stops.
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// use charcoal::{Chart, ColorScale};
+/// # let df = polars::frame::DataFrame::empty();
+/// let chart = Chart::heatmap(&df)
+///     .x("col")
+///     .y("row")
+///     .z("value")
+///     .color_scale(ColorScale::Viridis)
+///     .build()?;
+/// # Ok::<(), charcoal::CharcoalError>(())
+/// ```
 #[derive(Debug, Clone)]
 pub enum ColorScale {
+    /// Perceptually uniform blue-green-yellow gradient (Matplotlib Viridis).
     Viridis,
+    /// High-contrast purple-orange-yellow gradient (Matplotlib Plasma).
     Plasma,
+    /// Diverging red–white–blue gradient, centred at white. Useful for
+    /// correlation matrices and data with a meaningful zero.
     RdBu,
+    /// Linear black-to-white gradient.
     Greyscale,
 }
 

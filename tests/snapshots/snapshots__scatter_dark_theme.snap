@@ -1,0 +1,57 @@
+---
+source: tests/snapshots.rs
+assertion_line: 223
+expression: normalize_svg(svg)
+---
+<svg id="cc_000000" xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<rect x="0.00" y="0.00" width="800.00" height="500.00" fill="#1E1E1E"/>
+<defs><clipPath id="cc_000000_clip"><rect x="70.00" y="50.00" width="700.00" height="390.00"/></clipPath></defs>
+<line x1="70.00" y1="50.00" x2="70.00" y2="440.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="245.00" y1="50.00" x2="245.00" y2="440.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="420.00" y1="50.00" x2="420.00" y2="440.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="595.00" y1="50.00" x2="595.00" y2="440.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="770.00" y1="50.00" x2="770.00" y2="440.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="70.00" y1="362.00" x2="770.00" y2="362.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="70.00" y1="284.00" x2="770.00" y2="284.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="70.00" y1="206.00" x2="770.00" y2="206.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="70.00" y1="128.00" x2="770.00" y2="128.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="70.00" y1="50.00" x2="770.00" y2="50.00" stroke="#3A3A3A" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="70.00" y2="445.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="70.00" y="461.00" text-anchor="middle" font-size="12" fill="#CCCCCC">4.5</text>
+<line x1="245.00" y1="440.00" x2="245.00" y2="445.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="245.00" y="461.00" text-anchor="middle" font-size="12" fill="#CCCCCC">5.0</text>
+<line x1="420.00" y1="440.00" x2="420.00" y2="445.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="420.00" y="461.00" text-anchor="middle" font-size="12" fill="#CCCCCC">5.5</text>
+<line x1="595.00" y1="440.00" x2="595.00" y2="445.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="595.00" y="461.00" text-anchor="middle" font-size="12" fill="#CCCCCC">6.0</text>
+<line x1="770.00" y1="440.00" x2="770.00" y2="445.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="770.00" y="461.00" text-anchor="middle" font-size="12" fill="#CCCCCC">6.5</text>
+<line x1="70.00" y1="50.00" x2="70.00" y2="440.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<line x1="65.00" y1="440.00" x2="70.00" y2="440.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="61.00" y="444.20" text-anchor="end" font-size="12" fill="#CCCCCC">2.6</text>
+<line x1="65.00" y1="362.00" x2="70.00" y2="362.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="61.00" y="366.20" text-anchor="end" font-size="12" fill="#CCCCCC">2.8</text>
+<line x1="65.00" y1="284.00" x2="70.00" y2="284.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="61.00" y="288.20" text-anchor="end" font-size="12" fill="#CCCCCC">3.0</text>
+<line x1="65.00" y1="206.00" x2="70.00" y2="206.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="61.00" y="210.20" text-anchor="end" font-size="12" fill="#CCCCCC">3.2</text>
+<line x1="65.00" y1="128.00" x2="70.00" y2="128.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="61.00" y="132.20" text-anchor="end" font-size="12" fill="#CCCCCC">3.4</text>
+<line x1="65.00" y1="50.00" x2="70.00" y2="50.00" stroke="#CCCCCC" stroke-width="1.00"/>
+<text x="61.00" y="54.20" text-anchor="end" font-size="12" fill="#CCCCCC">3.6</text>
+<g clip-path="url(#cc_000000_clip)">
+<circle cx="280.00" cy="89.00" r="3.00" fill="#5B8DB8" opacity="1.00"/>
+<circle cx="210.00" cy="284.00" r="3.00" fill="#5B8DB8" opacity="1.00"/>
+<circle cx="140.00" cy="206.00" r="3.00" fill="#5B8DB8" opacity="1.00"/>
+<circle cx="735.00" cy="206.00" r="3.00" fill="#5B8DB8" opacity="1.00"/>
+<circle cx="700.00" cy="167.00" r="3.00" fill="#5B8DB8" opacity="1.00"/>
+<circle cx="525.00" cy="401.00" r="3.00" fill="#5B8DB8" opacity="1.00"/>
+<circle cx="490.00" cy="362.00" r="3.00" fill="#5B8DB8" opacity="1.00"/>
+</g>
+<text x="400.00" y="30.00" text-anchor="middle" font-size="16" fill="#CCCCCC">Dark Theme</text>
+<text x="420.00" y="494.00" text-anchor="middle" font-size="12" fill="#CCCCCC">sepal_length</text>
+<text x="24.50" y="245.00" text-anchor="middle" font-size="12" fill="#CCCCCC" transform="rotate(-90.00,24.50,245.00)" >sepal_width</text>
+
+</svg>

@@ -59,6 +59,20 @@ const NULL_COLOR: &str = "#AAAAAA";
 // ---------------------------------------------------------------------------
 
 /// Controls the baseline of the filled area.
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// use charcoal::Chart;
+/// use charcoal::FillMode;
+/// # let df = polars::frame::DataFrame::empty();
+/// let chart = Chart::area(&df)
+///     .x("week")
+///     .y("downloads")
+///     .fill_mode(FillMode::ToMinimum)
+///     .build()?;
+/// # Ok::<(), charcoal::CharcoalError>(())
+/// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum FillMode {
     /// Fill from the line down to y=0. Default.

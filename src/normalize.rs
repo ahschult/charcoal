@@ -1,3 +1,18 @@
+//! Column value extraction and normalisation for charcoal.
+//!
+//! The three public-crate functions each extract a column from a `DataFrame`
+//! and convert its values into the representation that the SVG renderer needs:
+//!
+//! - [`to_f64`] — extracts any Numeric column as `Vec<Option<f64>>`
+//! - [`to_epoch_ms`] — extracts any Temporal column as `Vec<Option<f64>>`
+//!   (milliseconds since the Unix epoch)
+//! - [`to_string`] — extracts any column as `Vec<Option<String>>` for use as
+//!   categorical axis labels
+//!
+//! All three functions emit a [`crate::CharcoalWarning::NullsSkipped`] for each
+//! null value they encounter and propagate [`crate::CharcoalError`] for type
+//! mismatches.
+
 use polars::datatypes::{DataType, TimeUnit};
 use polars::frame::DataFrame;
 

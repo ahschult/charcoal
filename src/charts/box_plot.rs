@@ -72,6 +72,20 @@ const JITTER_MAX_PX:      f64   = 6.0;
 // ---------------------------------------------------------------------------
 
 /// Controls which individual data points are rendered on top of each box.
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// use charcoal::Chart;
+/// use charcoal::PointDisplay;
+/// # let df = polars::frame::DataFrame::empty();
+/// let chart = Chart::box_plot(&df)
+///     .x("group")
+///     .y("value")
+///     .points(PointDisplay::All)
+///     .build()?;
+/// # Ok::<(), charcoal::CharcoalError>(())
+/// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum PointDisplay {
     /// Only outliers are shown as individual points (default).

@@ -1,3 +1,15 @@
+//! Chart builder entry points and shared output types.
+//!
+//! This module wires together all chart-type submodules and exposes the
+//! [`Chart`] struct (the fully-rendered output of any `.build()` call) along
+//! with the shared option enums ([`NullPolicy`], [`DashStyle`], [`Orientation`])
+//! that appear across multiple chart types.
+//!
+//! Each chart type lives in its own submodule (`scatter`, `line`, `bar`, …) and
+//! is reached through the static entry points on `Chart` (e.g. `Chart::scatter`).
+//! Contributors adding a new chart type should follow the typestate pattern
+//! established in `scatter.rs` — see `CONTRIBUTING.md` for the full checklist.
+
 #![allow(dead_code)]
 
 pub mod area;
@@ -14,42 +26,162 @@ use crate::error::{CharcoalError, CharcoalWarning};
 
 impl Chart {
     /// Begin building a scatter chart from `df`.
+    ///
+    /// Required columns: `.x()` (Numeric or Temporal) and `.y()` (Numeric).
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::scatter(&df)
+    ///     .x("sepal_length")
+    ///     .y("sepal_width")
+    ///     .color_by("species")
+    ///     .build()?;
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn scatter(df: &DataFrame) -> scatter::ScatterBuilder<'_> {
         scatter::ScatterBuilder::new(df)
     }
 
     /// Begin building a line chart from `df`.
+    ///
+    /// Required columns: `.x()` (Numeric or Temporal) and `.y()` (Numeric).
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// use charcoal::{Chart, NullPolicy};
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::line(&df)
+    ///     .x("date")
+    ///     .y("value")
+    ///     .null_policy(NullPolicy::Skip)
+    ///     .build()?;
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn line(df: &DataFrame) -> line::LineBuilder<'_> {
         line::LineBuilder::new(df)
     }
 
     /// Begin building a bar chart from `df`.
+    ///
+    /// Required columns: `.x()` (Categorical) and `.y()` (Numeric).
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::bar(&df)
+    ///     .x("category")
+    ///     .y("count")
+    ///     .build()?;
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn bar(df: &DataFrame) -> bar::BarBuilder<'_> {
         bar::BarBuilder::new(df)
     }
 
     /// Begin building a histogram from `df`.
+    ///
+    /// Required column: `.x()` (Numeric). Bin counts are computed automatically.
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::histogram(&df)
+    ///     .x("value")
+    ///     .bins(20)
+    ///     .build()?;
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn histogram(df: &DataFrame) -> histogram::HistogramBuilder<'_> {
         histogram::HistogramBuilder::new(df)
     }
 
     /// Begin building a heatmap from `df`.
+    ///
+    /// Required columns: `.x()` (Categorical), `.y()` (Categorical),
+    /// `.z()` (Numeric).
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// use charcoal::{Chart, ColorScale};
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::heatmap(&df)
+    ///     .x("col_label")
+    ///     .y("row_label")
+    ///     .z("value")
+    ///     .color_scale(ColorScale::Viridis)
+    ///     .build()?;
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn heatmap(df: &DataFrame) -> heatmap::HeatmapBuilder<'_> {
         heatmap::HeatmapBuilder::new(df)
     }
 
     /// Begin building a box plot from `df`.
+    ///
+    /// Required columns: `.x()` (Categorical, group labels) and `.y()` (Numeric,
+    /// values to summarise).
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::box_plot(&df)
+    ///     .x("group")
+    ///     .y("measurement")
+    ///     .notched(true)
+    ///     .build()?;
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn box_plot(df: &DataFrame) -> box_plot::BoxPlotBuilder<'_> {
         box_plot::BoxPlotBuilder::new(df)
     }
 
     /// Begin building an area chart from `df`.
+    ///
+    /// Required columns: `.x()` (Numeric or Temporal) and `.y()` (Numeric).
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// use charcoal::{Chart};
+    /// use charcoal::FillMode;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::area(&df)
+    ///     .x("week")
+    ///     .y("downloads")
+    ///     .fill_mode(FillMode::ToZero)
+    ///     .build()?;
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn area(df: &DataFrame) -> area::AreaBuilder<'_> {
         area::AreaBuilder::new(df)
     }
 }
 
 /// How null y-values are handled in connected series (Line, Area).
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// use charcoal::{Chart, NullPolicy};
+/// # let df = polars::frame::DataFrame::empty();
+/// let chart = Chart::line(&df)
+///     .x("date")
+///     .y("value")
+///     .null_policy(NullPolicy::Interpolate)
+///     .build()?;
+/// # Ok::<(), charcoal::CharcoalError>(())
+/// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum NullPolicy {
     /// Break the line at nulls, leaving a gap. Default.
@@ -60,8 +192,22 @@ pub enum NullPolicy {
 }
 
 /// Dash style for line and area series.
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// use charcoal::{Chart, DashStyle};
+/// # let df = polars::frame::DataFrame::empty();
+/// let chart = Chart::line(&df)
+///     .x("x")
+///     .y("y")
+///     .dash_style(DashStyle::Dashed)
+///     .build()?;
+/// # Ok::<(), charcoal::CharcoalError>(())
+/// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum DashStyle {
+    /// Unbroken line. Default.
     #[default]
     Solid,
     /// `stroke-dasharray="6 3"`
@@ -70,6 +216,20 @@ pub enum DashStyle {
     Dotted,
 }
 
+/// Bar chart orientation.
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// use charcoal::{Chart, Orientation};
+/// # let df = polars::frame::DataFrame::empty();
+/// let chart = Chart::bar(&df)
+///     .x("category")
+///     .y("value")
+///     .orientation(Orientation::Horizontal)
+///     .build()?;
+/// # Ok::<(), charcoal::CharcoalError>(())
+/// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Orientation {
     /// Categories on the x-axis, bar height on the y-axis. **Default.**
@@ -91,14 +251,21 @@ impl DashStyle {
 
 /// The fully-rendered output of a `.build()` call.
 ///
+/// A `Chart` is produced by calling `.build()` at the end of any builder chain.
+/// From it you can retrieve the SVG string, write output files, or inspect
+/// warnings emitted during rendering.
+///
+/// # Examples
+///
 /// ```rust,no_run
-/// # use charcoal::Chart;
+/// use charcoal::Chart;
 /// # let df = polars::frame::DataFrame::empty();
 /// let chart = Chart::scatter(&df)
 ///     .x("sepal_length")
 ///     .y("sepal_width")
 ///     .build()?;
 /// chart.save_svg("iris.svg")?;
+/// chart.save_html("iris.html")?;
 /// # Ok::<(), charcoal::CharcoalError>(())
 /// ```
 #[derive(Debug, Clone)]
@@ -112,21 +279,64 @@ pub struct Chart {
 
 impl Chart {
     /// The rendered SVG string.
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// # use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::scatter(&df).x("x").y("y").build()?;
+    /// let svg: &str = chart.svg();
+    /// assert!(svg.starts_with("<svg"));
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn svg(&self) -> &str {
         &self.svg
     }
 
     /// Warnings accumulated during rendering. Empty slice means a clean build.
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// # use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::scatter(&df).x("x").y("y").build()?;
+    /// for w in chart.warnings() {
+    ///     eprintln!("warning: {w}");
+    /// }
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn warnings(&self) -> &[CharcoalWarning] {
         &self.warnings
     }
 
     /// Chart width in pixels.
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// # use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::scatter(&df).x("x").y("y").build()?;
+    /// println!("{}×{}", chart.width(), chart.height());
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn width(&self) -> u32 {
         self.width
     }
 
     /// Chart height in pixels.
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// # use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::scatter(&df).x("x").y("y").build()?;
+    /// println!("{}×{}", chart.width(), chart.height());
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn height(&self) -> u32 {
         self.height
     }
@@ -134,7 +344,18 @@ impl Chart {
     /// Write the SVG to `path` (UTF-8, overwrites if exists).
     ///
     /// # Errors
+    ///
     /// [`CharcoalError::Io`] if the path is not writable or its parent directory does not exist.
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// # use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::scatter(&df).x("x").y("y").build()?;
+    /// chart.save_svg("output.svg")?;
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn save_svg(&self, path: &str) -> Result<(), CharcoalError> {
         fs::write(path, &self.svg)?;
         Ok(())
@@ -145,7 +366,18 @@ impl Chart {
     /// The file has no external dependencies and can be opened directly in any browser.
     ///
     /// # Errors
+    ///
     /// [`CharcoalError::Io`] if the path is not writable or its parent directory does not exist.
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// # use charcoal::Chart;
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = Chart::scatter(&df).x("x").y("y").build()?;
+    /// chart.save_html("output.html")?;
+    /// # Ok::<(), charcoal::CharcoalError>(())
+    /// ```
     pub fn save_html(&self, path: &str) -> Result<(), CharcoalError> {
         fs::write(path, to_inline_html(&self.svg, &self.title))?;
         Ok(())
@@ -195,6 +427,17 @@ impl Chart {
     /// in the cell output. Has no visible effect when called outside of an evcxr context.
     ///
     /// Requires the `notebook` feature flag.
+    ///
+    /// # Examples
+    ///
+    /// ```rust,no_run
+    /// # #[cfg(feature = "notebook")]
+    /// # fn example() -> Result<(), charcoal::CharcoalError> {
+    /// # let df = polars::frame::DataFrame::empty();
+    /// let chart = charcoal::Chart::scatter(&df).x("x").y("y").build()?;
+    /// chart.display(); // emits SVG to the notebook cell output
+    /// # Ok(()) }
+    /// ```
     #[cfg(feature = "notebook")]
     pub fn display(&self) {
         evcxr_runtime::Display::evcxr_display(self);

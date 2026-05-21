@@ -1,0 +1,61 @@
+---
+source: tests/snapshots.rs
+assertion_line: 176
+expression: normalize_svg(chart.svg())
+---
+<svg id="cc_000000" xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<rect x="0.00" y="0.00" width="800.00" height="500.00" fill="#FFFFFF"/>
+<defs><clipPath id="cc_000000_clip"><rect x="70.00" y="50.00" width="700.00" height="390.00"/></clipPath></defs>
+<line x1="245.00" y1="50.00" x2="245.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="595.00" y1="50.00" x2="595.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="384.29" x2="770.00" y2="384.29" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="328.57" x2="770.00" y2="328.57" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="272.86" x2="770.00" y2="272.86" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="217.14" x2="770.00" y2="217.14" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="161.43" x2="770.00" y2="161.43" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="105.71" x2="770.00" y2="105.71" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="50.00" x2="770.00" y2="50.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<line x1="245.00" y1="440.00" x2="245.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="245.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">Control</text>
+<line x1="595.00" y1="440.00" x2="595.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="595.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">Treated</text>
+<line x1="70.00" y1="50.00" x2="70.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<line x1="65.00" y1="440.00" x2="70.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="444.20" text-anchor="end" font-size="12" fill="#333333">2.0</text>
+<line x1="65.00" y1="384.29" x2="70.00" y2="384.29" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="388.49" text-anchor="end" font-size="12" fill="#333333">2.5</text>
+<line x1="65.00" y1="328.57" x2="70.00" y2="328.57" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="332.77" text-anchor="end" font-size="12" fill="#333333">3.0</text>
+<line x1="65.00" y1="272.86" x2="70.00" y2="272.86" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="277.06" text-anchor="end" font-size="12" fill="#333333">3.5</text>
+<line x1="65.00" y1="217.14" x2="70.00" y2="217.14" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="221.34" text-anchor="end" font-size="12" fill="#333333">4.0</text>
+<line x1="65.00" y1="161.43" x2="70.00" y2="161.43" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="165.63" text-anchor="end" font-size="12" fill="#333333">4.5</text>
+<line x1="65.00" y1="105.71" x2="70.00" y2="105.71" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="109.91" text-anchor="end" font-size="12" fill="#333333">5.0</text>
+<line x1="65.00" y1="50.00" x2="70.00" y2="50.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="54.20" text-anchor="end" font-size="12" fill="#333333">5.5</text>
+<g clip-path="url(#cc_000000_clip)">
+<rect x="157.50" y="295.14" width="175.00" height="89.14" fill="#4C72B0"/>
+<rect x="157.50" y="295.14" width="175.00" height="89.14" fill="none" stroke="#333333" stroke-width="1.50"/>
+<line x1="157.50" y1="339.71" x2="332.50" y2="339.71" stroke="#333333" stroke-width="2.00"/>
+<line x1="245.00" y1="295.14" x2="245.00" y2="250.57" stroke="#333333" stroke-width="1.50"/>
+<line x1="210.00" y1="250.57" x2="280.00" y2="250.57" stroke="#333333" stroke-width="1.50"/>
+<line x1="245.00" y1="384.29" x2="245.00" y2="428.86" stroke="#333333" stroke-width="1.50"/>
+<line x1="210.00" y1="428.86" x2="280.00" y2="428.86" stroke="#333333" stroke-width="1.50"/>
+<rect x="507.50" y="105.71" width="175.00" height="89.14" fill="#4C72B0"/>
+<rect x="507.50" y="105.71" width="175.00" height="89.14" fill="none" stroke="#333333" stroke-width="1.50"/>
+<line x1="507.50" y1="150.29" x2="682.50" y2="150.29" stroke="#333333" stroke-width="2.00"/>
+<line x1="595.00" y1="105.71" x2="595.00" y2="61.14" stroke="#333333" stroke-width="1.50"/>
+<line x1="560.00" y1="61.14" x2="630.00" y2="61.14" stroke="#333333" stroke-width="1.50"/>
+<line x1="595.00" y1="194.86" x2="595.00" y2="239.43" stroke="#333333" stroke-width="1.50"/>
+<line x1="560.00" y1="239.43" x2="630.00" y2="239.43" stroke="#333333" stroke-width="1.50"/>
+</g>
+<text x="400.00" y="30.00" text-anchor="middle" font-size="16" fill="#333333">Box Plot Groups</text>
+<text x="420.00" y="494.00" text-anchor="middle" font-size="12" fill="#333333">group</text>
+<text x="24.50" y="245.00" text-anchor="middle" font-size="12" fill="#333333" transform="rotate(-90.00,24.50,245.00)" >value</text>
+
+</svg>

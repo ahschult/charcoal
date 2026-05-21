@@ -1,3 +1,14 @@
+//! SVG canvas assembly and rendering pipeline.
+//!
+//! [`SvgCanvas`] is the top-level renderer: chart builders compute their data,
+//! call into [`geometry`] for atomic SVG elements, [`axes`] for scale
+//! computation and tick rendering, and then hand everything to
+//! `SvgCanvas::render` to produce the final `<svg>` string.
+//!
+//! The optional [`raster`] submodule (enabled by the `static` feature) converts
+//! the SVG to PNG via `resvg`. The [`html`] submodule wraps the SVG in a
+//! minimal standalone HTML document.
+
 #![allow(dead_code)]
 
 pub(crate) mod geometry;

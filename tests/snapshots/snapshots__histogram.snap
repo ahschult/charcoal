@@ -1,0 +1,66 @@
+---
+source: tests/snapshots.rs
+assertion_line: 148
+expression: normalize_svg(chart.svg())
+---
+<svg id="cc_000000" xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<rect x="0.00" y="0.00" width="800.00" height="500.00" fill="#FFFFFF"/>
+<defs><clipPath id="cc_000000_clip"><rect x="70.00" y="50.00" width="700.00" height="390.00"/></clipPath></defs>
+<line x1="70.00" y1="50.00" x2="70.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="186.67" y1="50.00" x2="186.67" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="303.33" y1="50.00" x2="303.33" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="420.00" y1="50.00" x2="420.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="536.67" y1="50.00" x2="536.67" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="653.33" y1="50.00" x2="653.33" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="770.00" y1="50.00" x2="770.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="362.00" x2="770.00" y2="362.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="284.00" x2="770.00" y2="284.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="206.00" x2="770.00" y2="206.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="128.00" x2="770.00" y2="128.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="50.00" x2="770.00" y2="50.00" stroke="#E0E0E0" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="770.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<line x1="70.00" y1="440.00" x2="70.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="70.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">2.0</text>
+<line x1="186.67" y1="440.00" x2="186.67" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="186.67" y="461.00" text-anchor="middle" font-size="12" fill="#333333">2.5</text>
+<line x1="303.33" y1="440.00" x2="303.33" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="303.33" y="461.00" text-anchor="middle" font-size="12" fill="#333333">3.0</text>
+<line x1="420.00" y1="440.00" x2="420.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="420.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">3.5</text>
+<line x1="536.67" y1="440.00" x2="536.67" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="536.67" y="461.00" text-anchor="middle" font-size="12" fill="#333333">4.0</text>
+<line x1="653.33" y1="440.00" x2="653.33" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="653.33" y="461.00" text-anchor="middle" font-size="12" fill="#333333">4.5</text>
+<line x1="770.00" y1="440.00" x2="770.00" y2="445.00" stroke="#333333" stroke-width="1.00"/>
+<text x="770.00" y="461.00" text-anchor="middle" font-size="12" fill="#333333">5.0</text>
+<line x1="70.00" y1="50.00" x2="70.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<line x1="65.00" y1="440.00" x2="70.00" y2="440.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="444.20" text-anchor="end" font-size="12" fill="#333333">0</text>
+<line x1="65.00" y1="362.00" x2="70.00" y2="362.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="366.20" text-anchor="end" font-size="12" fill="#333333">1</text>
+<line x1="65.00" y1="284.00" x2="70.00" y2="284.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="288.20" text-anchor="end" font-size="12" fill="#333333">2</text>
+<line x1="65.00" y1="206.00" x2="70.00" y2="206.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="210.20" text-anchor="end" font-size="12" fill="#333333">3</text>
+<line x1="65.00" y1="128.00" x2="70.00" y2="128.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="132.20" text-anchor="end" font-size="12" fill="#333333">4</text>
+<line x1="65.00" y1="50.00" x2="70.00" y2="50.00" stroke="#333333" stroke-width="1.00"/>
+<text x="61.00" y="54.20" text-anchor="end" font-size="12" fill="#333333">5</text>
+<g clip-path="url(#cc_000000_clip)">
+<rect x="93.33" y="362.00" width="67.67" height="78.00" fill="#4C72B0"/>
+<rect x="161.00" y="362.00" width="67.67" height="78.00" fill="#4C72B0"/>
+<rect x="228.67" y="362.00" width="67.67" height="78.00" fill="#4C72B0"/>
+<rect x="296.33" y="206.00" width="67.67" height="234.00" fill="#4C72B0"/>
+<rect x="364.00" y="128.00" width="67.67" height="312.00" fill="#4C72B0"/>
+<rect x="431.67" y="128.00" width="67.67" height="312.00" fill="#4C72B0"/>
+<rect x="499.33" y="284.00" width="67.67" height="156.00" fill="#4C72B0"/>
+<rect x="567.00" y="362.00" width="67.67" height="78.00" fill="#4C72B0"/>
+<rect x="634.67" y="362.00" width="67.67" height="78.00" fill="#4C72B0"/>
+<rect x="702.33" y="284.00" width="67.67" height="156.00" fill="#4C72B0"/>
+</g>
+<text x="400.00" y="30.00" text-anchor="middle" font-size="16" fill="#333333">Histogram</text>
+<text x="420.00" y="494.00" text-anchor="middle" font-size="12" fill="#333333">value</text>
+<text x="24.50" y="245.00" text-anchor="middle" font-size="12" fill="#333333" transform="rotate(-90.00,24.50,245.00)" >Count</text>
+
+</svg>

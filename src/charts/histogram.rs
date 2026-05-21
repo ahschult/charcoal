@@ -73,6 +73,18 @@ const Y_HEADROOM: f64 = 1.05;
 ///
 /// [`BinMethod::Fixed`] always takes precedence over all heuristic methods and
 /// is what `.bins(n)` sets internally.
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// use charcoal::{Chart, BinMethod};
+/// # let df = polars::frame::DataFrame::empty();
+/// let chart = Chart::histogram(&df)
+///     .x("value")
+///     .bin_method(BinMethod::FreedmanDiaconis)
+///     .build()?;
+/// # Ok::<(), charcoal::CharcoalError>(())
+/// ```
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum BinMethod {
     /// Scott's rule: `h = 3.49 σ n^{-1/3}`.

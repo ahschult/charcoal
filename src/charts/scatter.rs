@@ -1,3 +1,27 @@
+//! Scatter chart builder (`Chart::scatter(&df)`).
+//!
+//! # Column roles
+//!
+//! | Column | Required dtype | Role |
+//! |--------|---------------|------|
+//! | `x`    | Numeric or Temporal | Horizontal position |
+//! | `y`    | Numeric | Vertical position |
+//! | `color_by` | Categorical (optional) | Series grouping |
+//! | `size_by`  | Numeric (optional) | Point radius |
+//!
+//! # Builder chain
+//!
+//! `ScatterBuilder` → `.x()` → `ScatterWithX` → `.y()` → `ScatterWithXY` → `.build()`
+//!
+//! # Null handling
+//!
+//! | Column | Behaviour |
+//! |--------|-----------|
+//! | `x`    | Row dropped; [`crate::CharcoalWarning::NullsSkipped`] emitted. |
+//! | `y`    | Row dropped; [`crate::CharcoalWarning::NullsSkipped`] emitted. |
+//! | `color_by` | Row rendered with a synthetic null-category colour. |
+//! | `size_by`  | Row rendered at the default point size. |
+
 use std::collections::HashMap;
 
 use polars::frame::DataFrame;
